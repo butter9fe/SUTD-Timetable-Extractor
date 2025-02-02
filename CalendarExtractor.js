@@ -1,8 +1,9 @@
 /**
  * Simple timetable extractor from MyPortal!
- By Li Lian SC08 :D
+ * By Li Lian SC08 2025 :)
+ * For problems/feedback, feel free to contact me on tele @butter9fe
  
- Modified from: https://pastebin.com/wSiP2Ljm
+ * Modified from: https://pastebin.com/wSiP2Ljm
  */
 const nameOfFile = "schedule";
 (async function (doc) {
