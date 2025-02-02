@@ -14,7 +14,11 @@ At the top of the file, you can modify the following to tweak the events to your
 - **Replacement Room Names**
 - **Course Name Misspelling Fixes**
 
- #How to Use:
+### Sample
+![image](https://github.com/user-attachments/assets/ae0164b6-f67b-4cef-8e33-839dd0c4ba42)
+
+
+# How to Use:
 1. Go to `My Portal > My Record > My Weekly Schedule`
 2. Under Display Options:
 	- Check all 7 days of the week
@@ -26,4 +30,5 @@ At the top of the file, you can modify the following to tweak the events to your
 5. After it's done, the `.ics` file would be downloaded and you can import it to your calendar app
  
 This code interacts with the page, so please don't touch the page until the file has been downloaded.
+
 You can monitor its progress in the console!
