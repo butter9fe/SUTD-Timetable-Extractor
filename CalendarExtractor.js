@@ -3,6 +3,7 @@
  By Li Lian SC08 2025 :)
  For problems/feedback, feel free to contact me on tele @butter9fe
  
+ Github Repo (any updates would be posted here!): https://github.com/butter9fe/SUTD-Timetable-Extractor
  Modified from: https://pastebin.com/wSiP2Ljm
  
  How to Use:
@@ -26,7 +27,7 @@ const nameOfFile = "schedule";
 	//#region Customizable Stuff
 	const numWksToGet = 14; // Starts from the week you have opened on
 	const keepCourseCode = false; // Whether you want to keep the course code in the name
-	const keepCourseType = false; // Whether you want to keep course type in the name (eg: Lecture/Cohort Based Learning)
+	const keepCourseType = true; // Whether you want to keep course type in the name (eg: Lecture/Cohort Based Learning)
 
 	const roomNames = {
         "1.314": "Cohort Class 1",
@@ -147,9 +148,6 @@ DTSTART;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)
 DTEND;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)}T${pad(c.time[1], 4)}00
 SUMMARY:${c.name}
 LOCATION:${c.place}
-TRANSP:OPAQUE
-X-MICROSOFT-CDO-BUSYSTATUS:BUSY
-CLASS:PUBLIC
 END:VEVENT`;
 
     const icsContent = `BEGIN:VCALENDAR
