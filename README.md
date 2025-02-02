@@ -22,7 +22,7 @@ At the top of the file, you can modify the following to tweak the events to your
 	- Uncheck Show AM/PM & Show Instructors
 	- Press "Refresh Calendar"
 3. Go to the 1st week of your Term
-4. Press `Ctrl + Shift + I`, go to the Console tab, paste in the `CalendarExtractor.js` code (just press the Raw button and `Ctrl + A` & `Ctrl + V`), and press `Enter`
+4. Press `Ctrl + Shift + I`, go to the Console tab, paste in [CalendarExtractor.js](https://github.com/butter9fe/SUTD-Timetable-Extractor/blob/main/CalendarExtractor.js "`CalendarExtractor.js`") code (just click on the little Copy button next to Raw), and press `Enter`
 5. After it's done, the `.ics` file would be downloaded and you can import it to your calendar app
  
 This code interacts with the page, so please don't touch the page until the file has been downloaded.
