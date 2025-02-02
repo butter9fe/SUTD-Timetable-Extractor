@@ -1,26 +1,8 @@
 /**
  * Simple timetable extractor from MyPortal!
- By Li Lian SC08 2025 :)
- For problems/feedback, feel free to contact me on tele @butter9fe
+ By Li Lian SC08 :D
  
- Github Repo (any updates would be posted here!): https://github.com/butter9fe/SUTD-Timetable-Extractor
  Modified from: https://pastebin.com/wSiP2Ljm
- 
- How to Use:
- 1. Go to My Portal > My Record > My Weekly Schedule
- 
- 2. Under Display Options:
- - Check all 7 days of the week
- - Check Show Class Title
- - Uncheck Show AM/PM & Show Instructors
- - Press "Refresh Calendar"
- 
- 3. Go to the 1st week of your Term
- 4. Press Ctrl + Shift + I, go to the Console tab, paste this code (just Ctrl + A & Ctrl + V) and press Enter
- 5. After it's done, the '.ics' file would be downloaded and you can import it to your calendar app
- 
- This code interacts with the page, so please don't touch the page until the file has been downloaded!
- You can monitor its progress in the console.
  */
 const nameOfFile = "schedule";
 (async function (doc) {
