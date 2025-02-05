@@ -14,9 +14,12 @@ At the top of the file, you can modify the following to tweak the events to your
 - **Replacement Room Names** `(eg: Auditorium/Cohort Classroom 8)`
 - **Course Name Misspelling Fixes** `(For long course names that got cut off)`
 
-### Sample
-![image](https://github.com/user-attachments/assets/ae0164b6-f67b-4cef-8e33-839dd0c4ba42)
+### Samples
+![image](https://github.com/user-attachments/assets/51af2a5c-3ee8-412c-b779-dfd7748cb9cb)
+<sup>Course Code & Course Type [Off]</sup>
 
+![image](https://github.com/user-attachments/assets/cf2e49a4-58df-4b45-9b0c-2510fda11e53)
+<sup>Course Code & Course Type [On]</sup>
 
 # How to Use:
 1. Go to `My Portal > My Record > My Weekly Schedule`
