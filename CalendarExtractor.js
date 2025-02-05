@@ -61,15 +61,13 @@ const nameOfFile = "schedule";
 				};
 			});
 
-		const removeExtraSpaces = s => s.split(' ').filter(s => s.length > 0).join(' ');
-
 		const c = Array.from(doc.querySelectorAll('#WEEKLY_SCHED_HTMLAREA td > span'))
 			.map(e => e.parentNode)
 			.filter(e => day_from_x[Math.round(e.getBoundingClientRect().x)] !== undefined)
 			.map(e => {
 				/**
 				 * The span contains the following:
-				 * 0: Course Code - Class (eg: 10 .016 - SC08) [yes there's weirdly a space in-between]
+				 * 0: Course Code - Class (eg: 10 .016 - SC08) [with the space in-between code for some reason]
 				 * 1: break
 				 * 2: Course Name (eg: Science for a Sustainable World)
 				 * 3: break
@@ -83,20 +81,16 @@ const nameOfFile = "schedule";
 				const day = days[day_from_x[Math.round(e.getBoundingClientRect().x)]];
 
 				// Formatting the name
-				const formatCourseCode = s => {
-					const words = removeExtraSpaces(s).split(' ');
-					return words[0] + words.slice(1).join(' ');
-				}
 				let courseName = span[2].textContent;
 				if (courseName in courseMisspellings) // Replace misspelled module names
 					courseName = courseMisspellings[courseName];
 				if (keepCourseCode)
-					courseName = formatCourseCode(span[0].textContent) + courseName;
+					courseName = `${span[0].textContent.replace(/\s+/g, '').replace(/-.*/, '')} ${courseName}`;
 				if (keepCourseType)
 					courseName += ` - ${span[4].textContent}`;
 
 				// Formatting the place
-				let place = removeExtraSpaces(span[8].textContent).split(' '); // Name (can be multiple words) Code
+				let place = span[8].textContent.split(' '); // Name (can be multiple words) Code
 				const placeCode = place.pop();
 				if (placeCode in roomNames) // If we have specified a room name, we want to replace it, otherwise we keep the default one
 					place = roomNames[placeCode];
@@ -104,7 +98,7 @@ const nameOfFile = "schedule";
                     place = place.join(' ');
 
 				return {
-					name: removeExtraSpaces(courseName),
+					name: courseName,
 					day,
 					time: span[6].textContent.split(' - ').map(s => s.split(':').join('')), // [0900, 1100]
 					place: `${place} (${placeCode})` // Will become Auditorium (2.101), feel free to change this formatting if you want!
