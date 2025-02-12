@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/5496cc5d-6926-4b73-a372-f558acb4dbc3)# SUTD Timetable Extractor
+# SUTD Timetable Extractor
 Converts SUTD's MyPortal Weekly Schedule webpage to an `.ics` file that can be imported in various calendar apps like Outlook & Google calendar.
 
 This is a fork from https://pastebin.com/wSiP2Ljm, where the original was broken (as of 2025). I simply fixed it, as well as added some additional features & customization options. The file is commented as well for ease of editing if you want to change things :)
