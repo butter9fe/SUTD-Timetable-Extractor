@@ -5,22 +5,6 @@ This is a fork from https://pastebin.com/wSiP2Ljm, where the original was broken
 
 I am mostly a beginner self-taught JS programmer so feel free to reach out to me for ways to make this script better! For any suggestions, go ahead and create issues or PRs :D
 
-### Customizations
-At the top of the file, you can modify the following to tweak the events to your liking:
-- **Name** of the file
-- **Number of Weeks** to fetch
-- **Course Code** in event name `(eg: 10.016)`
-- **Course Type** in event name `(eg: Lecture/Cohort Based Learning)`
-- **Replacement Room Names** `(eg: Auditorium/Cohort Classroom 8)`
-- **Course Name Misspelling Fixes** `(For long course names that got cut off)`
-
-### Samples
-![image](https://github.com/user-attachments/assets/51af2a5c-3ee8-412c-b779-dfd7748cb9cb)
-<sup>Course Code & Course Type [Off]</sup>
-
-![image](https://github.com/user-attachments/assets/cf2e49a4-58df-4b45-9b0c-2510fda11e53)
-<sup>Course Code & Course Type [On]</sup>
-
 # How to Use:
 1. Go to `My Portal > My Record > My Weekly Schedule`
 2. Under Display Options:
@@ -38,3 +22,19 @@ At the top of the file, you can modify the following to tweak the events to your
 This code interacts with the page, so please don't touch the page until the file has been downloaded.
 
 You can monitor its progress in the console!
+
+# Customizations
+At the top of the file, you can modify the following to tweak the events to your liking:
+- **Name** of the file
+- **Number of Weeks** to fetch
+- **Course Code** in event name `(eg: 10.016)`
+- **Course Type** in event name `(eg: Lecture/Cohort Based Learning)`
+- **Replacement Room Names** `(eg: Auditorium/Cohort Classroom 8)`
+- **Course Name Misspelling Fixes** `(For long course names that got cut off)`
+
+# Samples
+![image](https://github.com/user-attachments/assets/51af2a5c-3ee8-412c-b779-dfd7748cb9cb)
+<sup>Course Code & Course Type [Off]</sup>
+
+![image](https://github.com/user-attachments/assets/cf2e49a4-58df-4b45-9b0c-2510fda11e53)
+<sup>Course Code & Course Type [On]</sup>
