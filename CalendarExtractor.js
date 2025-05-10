@@ -13,13 +13,13 @@ const nameOfFile = "schedule";
 	const keepCourseType = true; // Whether you want to keep course type in the name (eg: Lecture/Cohort Based Learning)
 
 	const roomNames = {
-        "1.314": "Cohort Class 1",
-        "1.315": "Cohort Class 2",
-        "1.413": "Cohort Class 3",
-        "1.414": "Cohort Class 4",
-        "1.513": "Cohort Class 5",
-        "1.514": "Cohort Class 6",
-        "1.608": "Cohort Class 7",
+		"1.314": "Cohort Class 1",
+		"1.315": "Cohort Class 2",
+		"1.413": "Cohort Class 3",
+		"1.414": "Cohort Class 4",
+		"1.513": "Cohort Class 5",
+		"1.514": "Cohort Class 6",
+		"1.608": "Cohort Class 7",
 		"1.609": "Cohort Class 8",
 		"2.307": "Cohort Class 9",
 		"2.308": "Cohort Class 10",
@@ -45,14 +45,24 @@ const nameOfFile = "schedule";
 	} // For module names that have been cut off (credit to https://github.com/MarkHershey/sutd-calendar-fixer/blob/master/src/calendarFixer.py)!
 	//#endregion
 
+	// Validity checks in case user forgets to follow some instructions
+	// We can't directly query whether checkboxes are checked as they might forget to Refresh Calendar too
+	if (Array.from(doc.querySelectorAll('#WEEKLY_SCHED_HTMLAREA th')).length != 8)
+		throw new Error("Check all 7 days of the week then press 'Refresh Calendar'!");
+
 	let classes = [];
-    const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	for (let i = 0; i < numWksToGet; i++) {
 		const day_from_x = {};
 		const days = Array.from(doc.querySelectorAll('#WEEKLY_SCHED_HTMLAREA th'))
 			.slice(1)
 			.map((e, i) => {
 				let [month, day] = e.textContent.split('\n')[1].split(' ');
+				// Sometimes it is formatted as [day, month] instead, so check if day is numeric
+				// If not, swap month and day variables
+				if (isNaN(parseFloat(day)))
+					day = [month, month = day][0];
+				
 				const x = Math.round(e.getBoundingClientRect().x);
 				day_from_x[x] = i;
 				return {
@@ -80,6 +90,14 @@ const nameOfFile = "schedule";
 				const span = e.childNodes[0].childNodes;
 				const day = days[day_from_x[Math.round(e.getBoundingClientRect().x)]];
 
+				// More validity checks
+				if (span.length != 9)
+					throw new Error("Check 'Show Class Title' and press 'Refresh Calendar'!");
+				if (span[8].textContent.includes("Instructor") || span[8].textContent.includes("Staff"))
+					throw new Error("Uncheck 'Show Instructors' and press 'Refresh Calendar'!");
+				if (span[6].textContent.includes("AM") || span[6].textContent.includes("PM"))
+					throw new Error("Uncheck 'Show AM/PM' and press 'Refresh Calendar'!");
+
 				// Formatting the name
 				let courseName = span[2].textContent;
 				if (courseName in courseMisspellings) // Replace misspelled module names
@@ -94,8 +112,8 @@ const nameOfFile = "schedule";
 				const placeCode = place.pop();
 				if (placeCode in roomNames) // If we have specified a room name, we want to replace it, otherwise we keep the default one
 					place = roomNames[placeCode];
-                else
-                    place = place.join(' ');
+				else
+					place = place.join(' ');
 
 				return {
 					name: courseName,
