@@ -167,31 +167,31 @@ const nameOfFile = "schedule";
     const createdTime = `${currYear}${pad(now.getUTCMonth() + 1, 2)}${pad(now.getUTCDate(), 2)}T${pad(now.getUTCHours(), 2)}${pad(now.getUTCMinutes(), 2)}${pad(now.getUTCSeconds(), 2)}Z`;
 
     const classToEvent = c => `BEGIN:VEVENT
-	DTSTAMP:${createdTime}
-	UID:${Math.random().toString(16).slice(2)}@calendar.sutd.edu.sg
-	DTSTART;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)}T${pad(c.time[0], 4)}00
-	DTEND;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)}T${pad(c.time[1], 4)}00
-	SUMMARY:${c.name}
-	LOCATION:${c.place}
-	END:VEVENT`;
+DTSTAMP:${createdTime}
+UID:${Math.random().toString(16).slice(2)}@calendar.sutd.edu.sg
+DTSTART;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)}T${pad(c.time[0], 4)}00
+DTEND;TZID=Asia/Singapore:${currYear}${pad(c.day.month, 2)}${pad(c.day.day, 2)}T${pad(c.time[1], 4)}00
+SUMMARY:${c.name}
+LOCATION:${c.place}
+END:VEVENT`;
 
     const icsContent = `BEGIN:VCALENDAR
-	VERSION:2.0
-	PRODID:Academic Calendar ${currYear}
-	CALSCALE:GREGORIAN
-	BEGIN:VTIMEZONE
-	TZID:Asia/Singapore
-	TZURL:https://www.tzurl.org/zoneinfo-outlook/Asia/Singapore
-	X-LIC-LOCATION:Asia/Singapore
-	BEGIN:STANDARD
-	TZNAME:+08
-	TZOFFSETFROM:+0800
-	TZOFFSETTO:+0800
-	DTSTART:19700101T000000
-	END:STANDARD
-	END:VTIMEZONE
-	${classes.map(classToEvent).join('\r\n')}
-	END:VCALENDAR`;
+VERSION:2.0
+PRODID:Academic Calendar ${currYear}
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:Asia/Singapore
+TZURL:https://www.tzurl.org/zoneinfo-outlook/Asia/Singapore
+X-LIC-LOCATION:Asia/Singapore
+BEGIN:STANDARD
+TZNAME:+08
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+${classes.map(classToEvent).join('\r\n')}
+END:VCALENDAR`;
 
 	let file = new Blob([icsContent], { type: 'text/calendar' });
 	const a = document.createElement("a");
