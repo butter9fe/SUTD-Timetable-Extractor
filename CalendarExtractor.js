@@ -5,9 +5,9 @@
  
  * Modified from: https://pastebin.com/wSiP2Ljm
  */
-const nameOfFile = "schedule";
-(async function (doc) {
+(async function () {
 	//#region Customizable Stuff
+	const nameOfFile = "schedule";
 	const numWksToGet = 14; // Starts from the week you have opened on
 	const keepCourseCode = false; // Whether you want to keep the course code in the name
 	const keepCourseType = true; // Whether you want to keep course type in the name (eg: Lecture/Cohort Based Learning)
@@ -56,11 +56,13 @@ const nameOfFile = "schedule";
 	    "2.606": "Cohort Class 15",
 	    "2.607": "Cohort Class 16",
 	    "2.101": "Auditorium",
+		"LT1": "Albert Hong Lecture Theatre 1",
 	    "1.102": "Albert Hong Lecture Theatre 1",
 	    "1.203": "Lecture Theatre 2",
 	    "2.403": "Lecture Theatre 3",
 	    "2.404": "Lecture Theatre 4",
-	    "2.505": "Lecture Theatre 5"
+	    "2.505": "Lecture Theatre 5",
+		"ONLINE": ""
 	}; // So that we can replace things like "ECC Building 1", feel free to add more!
 
 	const courseMisspellings = {
@@ -74,6 +76,18 @@ const nameOfFile = "schedule";
 		"Introduction to Digital Humani": "Introduction to Digital Humanities"
 	} // For module names that have been cut off (credit to https://github.com/MarkHershey/sutd-calendar-fixer/blob/master/src/calendarFixer.py)!
 	//#endregion
+
+	// Wait for iframe to be ready
+    const waitForIframe = async () => {
+		for (let i = 0; i < 20; i++) {
+			const iframe = document.querySelector('iframe');
+			if (iframe && iframe.contentDocument) return iframe.contentDocument;
+			await new Promise(res => setTimeout(res, 500));
+		}
+		throw new Error("Unable to access the timetable iframe. Make sure it's fully loaded.");
+	};
+	
+	  const doc = await waitForIframe();
 
 	// Validity checks in case user forgets to follow some instructions
 	// We can't directly query whether checkboxes are checked as they might forget to Refresh Calendar too
@@ -159,8 +173,7 @@ const nameOfFile = "schedule";
 		doc.getElementById('DERIVED_CLASS_S_SSR_NEXT_WEEK').click();
 		await new Promise(res => setTimeout(res, 2000));
 	}
-	return classes;
-})(document.getElementById('ptifrmtgtframe').contentDocument).then(classes => {
+
     const pad = (num, length) => ("0000" + num).slice(-length);
 	const now = new Date();
     const currYear = now.getUTCFullYear();
@@ -204,4 +217,4 @@ END:VCALENDAR`;
 		document.body.removeChild(a);
 		window.URL.revokeObjectURL(url);
 	}, 0);
-});
+})();
