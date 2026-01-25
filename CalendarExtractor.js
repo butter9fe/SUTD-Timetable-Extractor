@@ -6,6 +6,7 @@
 
 // #region Configurations
 const nameOfFile = "schedule";
+const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
 const keepModuleCode = false; // Whether you want to keep the module code in the name
 const keepModuleType = true; // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
 // #endregion
@@ -70,7 +71,11 @@ function parseClasses(classTable) {
         // Get date
         // Dates are formatted as "Date - Date" but it's always the same date so we just need to take the first one
         let date = row.querySelector('[id^="MTG_DATES"]').textContent.split(" ")[0];
-        const [ month, day, year ] = date.split('/');
+        let [ day, month, year ] = date.split('/');
+
+        // Sometimes the date is formatted as month/day/year instead, so check if that's the case. If so, swap accordingly
+        if (isMonthDayYearFormat)
+            [day, month] = [month, day];
         date = { day, month, year };
 
         return {
