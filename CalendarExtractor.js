@@ -6,7 +6,7 @@
 
 // #region Configurations
 const nameOfFile = "schedule";
-const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
+const isMonthDayYearFormat = true; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
 const keepModuleCode = false; // Whether you want to keep the module code in the name
 const keepModuleType = true; // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
 // #endregion
@@ -35,10 +35,18 @@ const MODULE_NAME_MISSPELLINGS = {
 
 // #region Helper Functions
 function timeStrTo24h(timeStr) {
+    // Account for different browsers displaying time as 12h vs 24h
+    const is12H = timeStr.endsWith("AM") || timeStr.endsWith("PM");
+
+    // If already 24h format, just need to remove :
+    if (!is12H) 
+        return timeStr.replace(":", "");
+
+    // Else, convert from 12h to 24h format
     let [time, modifier] = [timeStr.slice(0, -2), timeStr.slice(-2)];
     let [hours, minutes] = time.split(':');
 
-    // Convert to 24h
+    // Convert hours to 24h
     if (hours === '12') hours = '00';
     if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
 
