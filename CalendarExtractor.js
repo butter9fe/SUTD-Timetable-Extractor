@@ -6,7 +6,7 @@
 
 // #region Configurations
 const nameOfFile = "schedule";
-const isMonthDayYearFormat = true; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
+const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
 const keepModuleCode = false; // Whether you want to keep the module code in the name
 const keepModuleType = true; // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
 // #endregion
@@ -186,5 +186,6 @@ setTimeout(function() {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
 }, 0);
+
 
 console.log(".ics downloaded!");
