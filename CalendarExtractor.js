@@ -3,7 +3,7 @@
  * Last Updated: 25/01/26
  * For problems/feedback, feel free to contact me on tele @butter9fe
  */
-
+(() => {
 // #region Configurations
 const nameOfFile = "schedule";
 const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
@@ -55,8 +55,11 @@ function timeStrTo24h(timeStr) {
 }
 
 function parseClasses(classTable) {
-    const rows = Array.from(classTable.getElementsByTagName('tr'));
+    let rows = Array.from(classTable.getElementsByTagName('tr'));
     rows.shift(); // Remove first header row
+    
+    // ignore row if time is missing
+    rows = rows.filter(row => row.querySelector('[id^="MTG_SCHED"]').textContent.trim() !== '')
 
     let currModuleType = "";
     return rows.map(row => {
@@ -80,11 +83,12 @@ function parseClasses(classTable) {
         // Dates are formatted as "Date - Date" but it's always the same date so we just need to take the first one
         let date = row.querySelector('[id^="MTG_DATES"]').textContent.split(" ")[0];
         let [ day, month, year ] = date.split('/');
-
+        
         // Sometimes the date is formatted as month/day/year instead, so check if that's the case. If so, swap accordingly
         if (isMonthDayYearFormat)
             [day, month] = [month, day];
         date = { day, month, year };
+        console.log(date);
 
         return {
             moduleType: currModuleType,
@@ -189,3 +193,4 @@ setTimeout(function() {
 
 
 console.log(".ics downloaded!");
+})();
