@@ -88,7 +88,6 @@ function parseClasses(classTable) {
         if (isMonthDayYearFormat)
             [day, month] = [month, day];
         date = { day, month, year };
-        console.log(date);
 
         return {
             moduleType: currModuleType,
@@ -193,4 +192,5 @@ setTimeout(function() {
 
 
 console.log(".ics downloaded!");
+
 })();
