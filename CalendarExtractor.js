@@ -6,7 +6,6 @@
 (() => {
 // #region Configurations
 const nameOfFile = "schedule";
-const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
 const keepModuleCode = false; // Whether you want to keep the module code in the name
 const keepModuleType = true; // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
 // #endregion
@@ -34,6 +33,13 @@ const MODULE_NAME_MISSPELLINGS = {
 //#endregion
 
 // #region Helper Functions
+// Auto-detect browser date format (m/d/y vs d/m/y)
+const isMonthDayYearFormat = typeof Intl !== "undefined" && Intl.DateTimeFormat?.prototype.formatToParts
+    && (() => {
+        const parts = new Intl.DateTimeFormat(undefined, { day: "numeric", month: "numeric" }).formatToParts(new Date(2000, 0, 13));
+        return parts.findIndex(p => p.type === "month") < parts.findIndex(p => p.type === "day");
+    })();
+
 function timeStrTo24h(timeStr) {
     // Account for different browsers displaying time as 12h vs 24h
     const is12H = timeStr.endsWith("AM") || timeStr.endsWith("PM");
@@ -81,12 +87,13 @@ function parseClasses(classTable) {
 
         // Get date
         // Dates are formatted as "Date - Date" but it's always the same date so we just need to take the first one
-        let date = row.querySelector('[id^="MTG_DATES"]').textContent.split(" ")[0];
-        let [ day, month, year ] = date.split('/');
+        let date = row.querySelector('[id^="MTG_DATES"]').textContent.trim().split(/\s+/)[0];
+        let [a, b, year] = date.split('/');
+        let [day, month] = [a, b];
         
-        // Sometimes the date is formatted as month/day/year instead, so check if that's the case. If so, swap accordingly
-        if (isMonthDayYearFormat)
-            [day, month] = [month, day];
+        // If unambiguous, infer from values; otherwise fall back to locale detection
+        if ((+a <= 12 && +b > 12) || (+a <= 12 && +b <= 12 && isMonthDayYearFormat))
+            [day, month] = [b, a];
         date = { day, month, year };
 
         return {
