@@ -58,8 +58,11 @@ function parseClasses(classTable) {
     let rows = Array.from(classTable.getElementsByTagName('tr'));
     rows.shift(); // Remove first header row
     
-    // ignore row if time is missing
-    rows = rows.filter(row => row.querySelector('[id^="MTG_SCHED"]').textContent.trim() !== '')
+    // ignore row if time is missing or TBA due to credit transfer
+    rows = rows.filter(row => {
+        const t = row.querySelector('[id^="MTG_SCHED"]').textContent.trim();
+        return !/^TBA/i.test(t) && t.includes(':');
+    });
 
     let currModuleType = "";
     return rows.map(row => {
