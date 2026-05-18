@@ -5,10 +5,10 @@
  */
 (() => {
 // #region Configurations
-const nameOfFile = "schedule";
-const isMonthDayYearFormat = false; // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
-const keepModuleCode = false; // Whether you want to keep the module code in the name
-const keepModuleType = true; // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
+const nameOfFile = prompt("Name of File?", "schedule");
+const isMonthDayYearFormat = promptBoolean("Is your MyPortal timetable using Month/Day/Year format?\n\n[Note: Not the same as your system's setting! Please check what you actually see displayed on the page.]", "N"); // Whether your browser formats your dates as m/d/y. If false, will default to d/m/y
+const keepModuleCode = promptBoolean("Do you want to keep the module code (eg: 50.001) in the event name?", "N"); // Whether you want to keep the module code in the name
+const keepModuleType = promptBoolean("Do you want to keep the module type (eg: Lecture/Cohort Based Learning)  in the event name?", "Y"); // Whether you want to keep module type in the name (eg: Lecture/Cohort Based Learning)
 // #endregion
 
 // #region Mappings
@@ -34,6 +34,25 @@ const MODULE_NAME_MISSPELLINGS = {
 //#endregion
 
 // #region Helper Functions
+function promptBoolean(message, defaultVal) {
+    const promptStr = message + " (Y/N)";
+    let result = null;
+    while (result == null) {
+        let input = prompt(promptStr, defaultVal);
+        if (input != null)
+            input = input.trim().toUpperCase();
+
+        if (input == "Y")
+            result = true;
+        else if (input == "N")
+            result = false;
+        else
+            console.log("Please enter either Y or N!");
+    }
+
+    return result;
+}
+
 function timeStrTo24h(timeStr) {
     // Account for different browsers displaying time as 12h vs 24h
     const is12H = timeStr.endsWith("AM") || timeStr.endsWith("PM");
