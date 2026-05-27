@@ -83,8 +83,10 @@ function parseClasses(classTable) {
         return !/^TBA/i.test(t) && t.includes(':');
     });
 
+    const resultRows = [];
+
     let currModuleType = "";
-    return rows.map(row => {
+    for (const row of rows) {
         // Update module type, if any
         const rowType = row.querySelector('[id^="MTG_COMP"]').textContent.trim();
         if (rowType.length > 0)
@@ -94,6 +96,9 @@ function parseClasses(classTable) {
         const rowTime = row.querySelector('[id^="MTG_SCHED"]').textContent.split(" "); // [Day, StartTime, - , EndTime]
         const timeStart = timeStrTo24h(rowTime[1]);
         const timeEnd = timeStrTo24h(rowTime[3]);
+
+        const weekdayMap = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']; 
+        const weekday = rowTime[0];
         
         // Get location
         let location = row.querySelector('[id^="MTG_LOC"]').textContent;
@@ -103,22 +108,54 @@ function parseClasses(classTable) {
 
         // Get date
         // Dates are formatted as "Date - Date" but it's always the same date so we just need to take the first one
-        let date = row.querySelector('[id^="MTG_DATES"]').textContent.split(" ")[0];
-        let [ day, month, year ] = date.split('/');
+        let dateRow = row.querySelector('[id^="MTG_DATES"]').textContent.split(" ");
+        let startDate = dateRow[0];
+        let endDate = dateRow[2];
+
+        let [ day, month, year ] = startDate.split('/');
+        let [ endDay, endMonth, endYear ] = endDate.split('/');
         
         // Sometimes the date is formatted as month/day/year instead, so check if that's the case. If so, swap accordingly
         if (isMonthDayYearFormat)
-            [day, month] = [month, day];
-        date = { day, month, year };
+            [day, month, endDay, endMonth] = [month, day, endMonth, endDay];
 
-        return {
-            moduleType: currModuleType,
-            timeStart,
-            timeEnd,
-            location,
-            date
+        if (startDate === endDate) {
+            resultRows.push({
+                moduleType: currModuleType,
+                timeStart,
+                timeEnd,
+                location,
+                date: { day, month, year },
+            });
+        } else {
+            let curDate = new Date(year, month-1, day);
+            let endDate = new Date(endYear, endMonth-1, endDay);
+            let i = 0;
+            while (curDate.getTime() < endDate.getTime() && i < 10000) {
+                if (weekdayMap[curDate.getDay()] === weekday)
+                    resultRows.push({
+                        moduleType: currModuleType,
+                        timeStart,
+                        timeEnd,
+                        location,
+                        date: {
+                            day: curDate.getDate(),
+                            month: curDate.getMonth()+1,
+                            year: curDate.getFullYear(),
+                        },
+                    });
+                curDate.setDate(curDate.getDate() + 1);
+                i++;
+            }
+
+            // max iterations in case loop does not end
+            if (i >= 10000) {
+                alert('date parsing logic failed; check isMonthDayYearFormat');
+                return [];
+            }
         }
-    });
+    }
+    return resultRows;
 }
 
 const pad = (num, length) => ("0000" + num).slice(-length);
