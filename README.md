@@ -5,16 +5,9 @@ Feel free to reach out if you have any issues/ways to make this script better! :
 # How to Use:
 1. Go to `My Portal > My Record > My Weekly Schedule`
 
-2. Under `Select Display Option`, switch to List View
-     - <img width="727" height="113" alt="image" src="https://github.com/user-attachments/assets/43b15e1b-5ec0-443c-9e62-bc663183392b" />
+2. Copy the [WeeklyScheduleExtractor.js](https://github.com/butter9fe/SUTD-Timetable-Extractor/blob/main/WeeklyScheduleExtractor.js "`WeeklyScheduleExtractor.js`") code (just click on the little Copy button next to Raw)
 
-  
-3. Scroll all the way to the bottom and click `Printer Friendly Page`
-   - <img width="373" height="158" alt="image" src="https://github.com/user-attachments/assets/0010978f-d7ad-4bf6-807b-cd177b2fee9c" />
-
-4. Copy the [CalendarExtractor.js](https://github.com/butter9fe/SUTD-Timetable-Extractor/blob/main/CalendarExtractor.js "`CalendarExtractor.js`") code (just click on the little Copy button next to Raw)
-
-5. Press `Ctrl + Shift + J (Windows)`/`Cmd + Options + J (Mac)`, go to the Console tab, paste in your code, and press `Enter`
+5. Press `Fn + F12`, ensure you're in the Console tab, paste in your code, and press `Enter`. You may need to type `allow pasting`.
 
 6. You will be prompted for a couple of [configurations](#customizations) for you to tweak. One of which is to check if your page formats dates as `month/day/year`.
    - Note that the formatting isn't the same as your browser's configuration! It's assigned under 'My Preferences', but the default state of this seems to be random :(
@@ -27,12 +20,12 @@ Feel free to reach out if you have any issues/ways to make this script better! :
 
 # Customizations
 At the top of the file, you can modify the following to tweak the events to your liking:
-- **Name** of the file
+- **Name** of the file (start and end date are dynamically appended)
 - **Course Code** in event name `(eg: 10.016)`
 - **Course Type** in event name `(eg: Lecture/Cohort Based Learning)`
 - **Course Name Misspelling Fixes** `(For long course names that got cut off)`
 
-# Bookmarklet
+# Bookmarklet (eh need to double check this ah)
 You can add this script as a bookmark so you can run this script with a click of a button! 
 With this, you no longer need to constantly open this repo and manually copy and paste.
 1. Create a bookmark (usually Ctrl + D)

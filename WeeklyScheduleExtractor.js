@@ -36,7 +36,8 @@ const MODULE_NAME_MISSPELLINGS = {
     "Science for a Sustainable Worl": "Science for a Sustainable World",
     "Sci and Tech for Healthcare": "Science and Technology for Healthcare",
     "Digital Worlds\\, Space and Spat": "Digital Worlds, Space and Spatialities",
-    "Introduction to Digital Humani": "Introduction to Digital Humanities"
+    "Introduction to Digital Humani": "Introduction to Digital Humanities",
+    "Sustainabiity: Sci and Sys Thi": "Sustainability: Science and Systems Thinking",
 } // For module names that have been cut off (credit to https://github.com/MarkHershey/sutd-calendar-fixer/blob/master/src/calendarFixer.py)
 //#endregion
 
